@@ -3,15 +3,22 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
+    public SpriteGrid spriteGrid;
+
     protected MainController mainController;
     protected StateMachine stateMachine;
 
+    public virtual void SetupSpriteGrid()
+    {
+        spriteGrid.Setup(this, new List<int> { 10 });
+    }
 
     public virtual void Enter(MainController mainController, StateMachine stateMachine)
     {
         gameObject.SetActive(true);
         this.mainController = mainController;
         this.stateMachine = stateMachine;
+        SetupSpriteGrid();
     }
 
     public virtual void Exit()
@@ -20,28 +27,30 @@ public class State : MonoBehaviour
     }
 
     public virtual void Tick() { }
+
+    public virtual void HandleButtonSelect(int index)
+    {
+        Debug.Log("Button pressed: " + index.ToString());
+    }
 }
 
 public class StateMachine
 {
     public MainController mainController;
-    public State trainingState;
-    public State gameState;
     public State currentState;
 
-    public StateMachine(MainController mainController, State trainingState, State gameState)
+    public StateMachine(MainController mainController)
     {
         this.mainController = mainController;
 
-        this.trainingState = trainingState;
-        this.gameState = gameState;
-
         new List<State>() {
-            trainingState,
-            gameState
+            mainController.trainingController,
+            mainController.gameController,
+            mainController.upgradeMenuController,
+            mainController.plantMenuController
         }.ForEach(obj => obj.gameObject.SetActive(false));
 
-        GotoState(trainingState);
+        GotoState(mainController.trainingController);
     }
     public void Update()
     {
@@ -58,9 +67,6 @@ public class StateMachine
         if (!currentState)
         {
             currentState = newState;
-            Debug.Log("A");
-            Debug.Log(newState);
-            Debug.Log("B");
             currentState.Enter(mainController, this);
             return;
         }
@@ -82,16 +88,21 @@ public class MainController : MonoBehaviour
 {
     public State trainingController;
     public State gameController;
+    public State upgradeMenuController;
+    public State plantMenuController;
 
     StateMachine stateMachine;
 
     void Start()
     {
-        stateMachine = new StateMachine(this, trainingController, gameController);
+        stateMachine = new StateMachine(this);
     }
 
     void Update()
     {
-        stateMachine.Update();
+        if (stateMachine != null)
+        {
+            stateMachine.Update();
+        }
     }
 }

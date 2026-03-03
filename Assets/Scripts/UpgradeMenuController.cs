@@ -1,7 +1,6 @@
-
 using UnityEngine;
 
-public class GameController : State
+public class UpgradeMenuController : State
 {
     public override void HandleButtonSelect(int index)
     {
@@ -10,17 +9,17 @@ public class GameController : State
         // Selected button on the bottom row
         if (index == 9)
         {
-            Debug.Log("Open upgrade menu");
-            stateMachine.GotoState(mainController.upgradeMenuController);
+            Debug.Log("Cancel upgrade menu");
+            stateMachine.GotoState(mainController.gameController);
             return;
         }
 
         // On the 3x3 grid
         if (index >= 0 && index <= 8)
         {
-            // TODO Store which grid was selected for planting
-            Debug.Log("Open plant menu");
-            stateMachine.GotoState(mainController.plantMenuController);
+            Debug.Log("Selected plot to upgrade " + index);
+            // TODO Handle the upgrade logic
+            stateMachine.GotoState(mainController.gameController);
             return;
         }
     }
