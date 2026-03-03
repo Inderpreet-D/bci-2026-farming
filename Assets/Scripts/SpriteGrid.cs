@@ -36,7 +36,7 @@ public class SpriteGrid : MonoBehaviour
     void Start()
     {
         sprites = GetComponentsInChildren<SpriteRenderer>();
-        selectAction = InputSystem.actions.FindAction("Select");
+        selectAction = InputSystem.actions.FindAction("Jump");
     }
 
     private void UpdateSprites()
