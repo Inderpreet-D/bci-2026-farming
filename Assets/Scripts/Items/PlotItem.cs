@@ -34,7 +34,12 @@ public class PlotItem
         this.purchasePrice = purchasePrice;
         this.sellPrice = sellPrice;
         this.isAnimal = isAnimal;
-        this.sprite = Resources.Load<Sprite>("Sprites/" + iconName + ".png");
+        Debug.Log("Loading sprite from: " + iconName);
+        this.sprite = Resources.Load<Sprite>(iconName);
+        if (this.sprite == null)
+        {
+            Debug.LogError("Failed to load sprite for " + name + " at path: " + iconName);
+        }
     }
 
     public void UpdateSpriteGridCell(GameObject gridCell)

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class SpriteGrid : MonoBehaviour
 {
     public float delay = 0.3f;
-    private SpriteRenderer[] sprites;
+    public SpriteRenderer[] sprites;
     private float elapsed = 0.0f;
     private int index = 0;
     private State parentState;

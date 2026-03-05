@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TrainingController : State
 {
-    const float TRAINING_DELAY = 5.0f;
+    const float TRAINING_DELAY = 1.0f; //5.0f;
     private float elapsedTime;
 
     public override void Enter(MainController mainController, StateMachine stateMachine)
