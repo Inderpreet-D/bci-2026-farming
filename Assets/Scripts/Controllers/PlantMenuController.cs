@@ -3,27 +3,93 @@ using UnityEngine;
 
 public class PlantMenuController : State
 {
-    private PlotItem[] seeds;
+    private PlantMenuItem[] shopItems;
 
     public override void SetupSpriteGrid()
     {
-        spriteGrid.Setup(this, new List<int> { 6, 7, 8, 10 });
+        spriteGrid.Setup(this, new List<int> { 6, 7, 8 });
     }
 
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
         base.Enter(mainController, stateMachine);
 
-        seeds = new PlotItem[]
+        shopItems = new PlantMenuItem[]
         {
             // Fruits and vegetables
-            new("Carrot", "A healthy carrot", "placeholder", 5f, 3, "pcs", 1f, 2f, false),
-            new("Tomato", "A juicy tomato", "placeholder", 6f, 5, "pcs", 2f, 4f, false),
-            new("Apple", "A sweet apple", "placeholder", 8f, 6, "pcs", 2.5f, 5f, false),
+            new()
+            {
+                name = "Carrot",
+                description = "A healthy carrot",
+                iconName = "placeholder",
+                timeToGrow = 5f,
+                yield = 3,
+                yieldUnit = "pcs",
+                purchasePrice = 1f,
+                sellPrice = 2f,
+                isAnimal = false,
+            },
+            new()
+            {
+                name = "Tomato",
+                description = "A juicy tomato",
+                iconName = "placeholder",
+                timeToGrow = 6f,
+                yield = 5,
+                yieldUnit = "pcs",
+                purchasePrice = 2f,
+                sellPrice = 4f,
+                isAnimal = false,
+            },
+            new()
+            {
+                name = "Apple",
+                description = "A sweet apple",
+                iconName = "placeholder",
+                timeToGrow = 8f,
+                yield = 6,
+                yieldUnit = "pcs",
+                purchasePrice = 2.5f,
+                sellPrice = 5f,
+                isAnimal = false,
+            },
             // Animals
-            new("Chicken", "A clucking chicken", "placeholder", 10f, 2, "eggs/day", 5f, 10f, true),
-            new("Cow", "A mooing cow", "placeholder", 20f, 10, "milk/day", 20f, 40f, true),
-            new("Sheep", "A baaing sheep", "placeholder", 15f, 5, "wool/day", 10f, 20f, true),
+            new()
+            {
+                name = "Chicken",
+                description = "A clucking chicken",
+                iconName = "placeholder",
+                timeToGrow = 10f,
+                yield = 2,
+                yieldUnit = "eggs",
+                purchasePrice = 5f,
+                sellPrice = 10f,
+                isAnimal = true,
+            },
+            new()
+            {
+                name = "Cow",
+                description = "A mooing cow",
+                iconName = "placeholder",
+                timeToGrow = 20f,
+                yield = 10,
+                yieldUnit = "milk",
+                purchasePrice = 20f,
+                sellPrice = 40f,
+                isAnimal = true,
+            },
+            new()
+            {
+                name = "Sheep",
+                description = "A baaing sheep",
+                iconName = "placeholder",
+                timeToGrow = 15f,
+                yield = 5,
+                yieldUnit = "wool",
+                purchasePrice = 10f,
+                sellPrice = 20f,
+                isAnimal = true,
+            },
         };
     }
 
@@ -31,13 +97,23 @@ public class PlantMenuController : State
     {
         base.Tick();
 
-        for (int i = 0; i < seeds.Length; i++)
+        int seedIndex = 0;
+        for (int i = 0; i < spriteGrid.sprites.Length; i++)
         {
-            GameObject gridCell = spriteGrid.sprites[i].gameObject;
-            if (gridCell.activeSelf)
+            GameObject gridCellObject = spriteGrid.sprites[i].gameObject;
+            if (!gridCellObject.activeSelf)
             {
-                seeds[i].UpdateSpriteGridCell(gridCell);
+                continue;
             }
+
+            if (seedIndex >= shopItems.Length)
+            {
+                break;
+            }
+
+            SpriteGridCell gridCell = gridCellObject.GetComponent<SpriteGridCell>();
+            gridCell.RenderPlantMenuItem(shopItems[seedIndex]);
+            seedIndex++;
         }
     }
 
@@ -48,7 +124,7 @@ public class PlantMenuController : State
         // Selected button on the bottom row
         if (index == 9)
         {
-            Debug.Log("Cancel plant menu");
+            Debug.Log("Cancel shop menu");
             stateMachine.GotoState(mainController.gameController);
             return;
         }

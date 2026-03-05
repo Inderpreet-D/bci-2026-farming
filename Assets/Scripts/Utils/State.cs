@@ -10,7 +10,7 @@ public class State : MonoBehaviour
 
     public virtual void SetupSpriteGrid()
     {
-        spriteGrid.Setup(this, new List<int> { 10 });
+        spriteGrid.Setup(this, new List<int> { });
     }
 
     public virtual void Enter(MainController mainController, StateMachine stateMachine)

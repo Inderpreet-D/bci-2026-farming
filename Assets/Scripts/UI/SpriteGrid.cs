@@ -5,23 +5,25 @@ using UnityEngine.InputSystem;
 public class SpriteGrid : MonoBehaviour
 {
     public float delay = 0.3f;
-    public SpriteRenderer[] sprites;
+    public SpriteGridCell[] sprites;
     private float elapsed = 0.0f;
     private int index = 0;
     private State parentState;
     private InputAction selectAction;
+    private List<int> hiddenIndices;
 
     public void Setup(State parentState, List<int> hiddenIndices)
     {
-        sprites = GetComponentsInChildren<SpriteRenderer>();
+        sprites = GetComponentsInChildren<SpriteGridCell>(true);
         this.parentState = parentState;
+        this.hiddenIndices = hiddenIndices;
         elapsed = 0.0f;
         index = 0;
         UpdateSprites();
 
         for (int i = 0; i < sprites.Length; i++)
         {
-            SpriteRenderer sprite = sprites[i];
+            SpriteGridCell sprite = sprites[i];
             if (hiddenIndices.Contains(i))
             {
                 sprite.gameObject.SetActive(false);
@@ -31,11 +33,25 @@ public class SpriteGrid : MonoBehaviour
                 sprite.gameObject.SetActive(true);
             }
         }
+
+        if (sprites[9].TryGetComponent<SpriteGridCell>(out var lastCell))
+        {
+            lastCell.RenderButton();
+        }
+    }
+
+    public void RenderAllEmpty()
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            SpriteGridCell sprite = sprites[i];
+            sprite.RenderEmpty();
+        }
     }
 
     void Start()
     {
-        sprites = GetComponentsInChildren<SpriteRenderer>();
+        sprites = GetComponentsInChildren<SpriteGridCell>(true);
         selectAction = InputSystem.actions.FindAction("Jump");
     }
 
@@ -48,14 +64,14 @@ public class SpriteGrid : MonoBehaviour
 
         for (int i = 0; i < sprites.Length; i++)
         {
-            SpriteRenderer sprite = sprites[i];
+            SpriteGridCell sprite = sprites[i];
             if (i == index)
             {
-                sprite.color = Color.red;
+                sprite.backgroundRenderer.color = Color.red;
             }
             else
             {
-                sprite.color = Color.white;
+                sprite.backgroundRenderer.color = Color.white;
             }
         }
     }
@@ -72,7 +88,12 @@ public class SpriteGrid : MonoBehaviour
         if (elapsed >= delay)
         {
             elapsed = 0.0f;
-            index = (index + 1) % sprites.Length;
+
+            // Skip hidden indices
+            do
+            {
+                index = (index + 1) % sprites.Length;
+            } while (hiddenIndices.Contains(index));
         }
 
         UpdateSprites();
