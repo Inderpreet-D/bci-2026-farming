@@ -9,16 +9,18 @@ public class StateMachine
     {
         this.mainController = mainController;
 
-        new List<State>() {
+        new List<State>()
+        {
             mainController.trainingController,
             mainController.tutorialController,
             mainController.gameController,
             mainController.upgradeMenuController,
-            mainController.plantMenuController
+            mainController.plantMenuController,
         }.ForEach(obj => obj.gameObject.SetActive(false));
 
         GotoState(mainController.trainingController);
     }
+
     public void Update()
     {
         if (!currentState)
