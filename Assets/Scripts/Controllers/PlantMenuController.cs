@@ -14,6 +14,8 @@ public class PlantMenuController : State
     {
         base.Enter(mainController, stateMachine);
 
+        SetTitleText("Pick something to grow in a plot");
+
         shopItems = new PlantMenuItem[]
         {
             // Fruits and vegetables

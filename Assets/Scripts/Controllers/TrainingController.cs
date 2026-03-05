@@ -17,6 +17,8 @@ public class TrainingController : State
         base.Enter(mainController, stateMachine);
 
         elapsedTime = 0.0f;
+
+        SetTitleText("In the training mode");
     }
 
     public override void Tick()

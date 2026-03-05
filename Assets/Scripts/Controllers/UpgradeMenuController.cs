@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class UpgradeMenuController : State
 {
+    public override void Enter(MainController mainController, StateMachine stateMachine)
+    {
+        base.Enter(mainController, stateMachine);
+
+        SetTitleText("Pick an upgrade to buy");
+    }
+
     public override void HandleButtonSelect(int index)
     {
         base.HandleButtonSelect(index);

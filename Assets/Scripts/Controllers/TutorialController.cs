@@ -10,6 +10,8 @@ public class TutorialController : State
         base.Enter(mainController, stateMachine);
 
         elapsedTime = 0.0f;
+
+        SetTitleText("Tutorial goes here");
     }
 
     public override void Tick()
