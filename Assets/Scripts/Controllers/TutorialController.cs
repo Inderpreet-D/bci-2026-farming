@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class TrainingController : State
+public class TutorialController : State
 {
-    const float TRAINING_DELAY = 5.0f;
+    const float TUTORIAL_DELAY = 5.0f;
     private float elapsedTime;
 
     public override void Enter(MainController mainController, StateMachine stateMachine)
@@ -17,7 +17,7 @@ public class TrainingController : State
         base.Tick();
 
         elapsedTime += Time.deltaTime;
-        if (elapsedTime >= TRAINING_DELAY)
+        if (elapsedTime >= TUTORIAL_DELAY)
         {
             stateMachine.GotoState(stateMachine.mainController.gameController);
         }
