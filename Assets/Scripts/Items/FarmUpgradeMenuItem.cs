@@ -1,23 +1,5 @@
 public class FarmUpgradeMenuItem : UpgradeMenuItem
 {
-    public new string Description
-    {
-        get
-        {
-            if (UpgradeLevel == 0)
-            {
-                return "Upgrade this plot to increase the coins earned and improve yield.";
-            }
-
-            if (UpgradeLevel == 1)
-            {
-                return "Upgrade this plot to make crops grow 50% faster.";
-            }
-
-            return "This upgrade is fully maxed out.";
-        }
-    }
-
     public override void ApplyUpgrade(PlotItem plot)
     {
         base.ApplyUpgrade(plot);
@@ -34,5 +16,20 @@ public class FarmUpgradeMenuItem : UpgradeMenuItem
             plot.growthRateMultiplier = 1.5f;
             return;
         }
+    }
+
+    public override string GetDescription()
+    {
+        if (UpgradeLevel == 0)
+        {
+            return "Upgrade this plot to increase the coins earned and improve yield.";
+        }
+
+        if (UpgradeLevel == 1)
+        {
+            return "Upgrade this plot to make crops grow 50% faster.";
+        }
+
+        return "This upgrade is fully maxed out.";
     }
 }

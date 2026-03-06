@@ -11,6 +11,21 @@ public class UpgradeMenuController : State
         spriteGrid.SetButtonText("Go Back");
     }
 
+    public override void Tick()
+    {
+        base.Tick();
+
+        Debug.Log("Upgrade menu tick: " + mainController.PlotItems.Length);
+
+        for (int i = 0; i < mainController.PlotItems.Length; i++)
+        {
+            PlotItem plot = mainController.PlotItems[i];
+            UpgradeMenuItem upgrade = plot.Upgrade;
+            SpriteGridCell cell = spriteGrid.sprites[i];
+            cell.RenderUpgradeItem(upgrade);
+        }
+    }
+
     public override void HandleButtonSelect(int index)
     {
         base.HandleButtonSelect(index);

@@ -33,4 +33,6 @@ public abstract class UpgradeMenuItem
             return -1f; // No more upgrades available
         }
     }
+
+    public abstract string GetDescription();
 }

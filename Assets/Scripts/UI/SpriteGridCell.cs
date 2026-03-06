@@ -8,6 +8,7 @@ public class SpriteGridCell : MonoBehaviour
     public SpriteRenderer shopIconRenderer;
     public SpriteRenderer centerIconRenderer;
     public TextMeshProUGUI shopText;
+    public TextMeshProUGUI upgradeText;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI debugText;
 
@@ -18,6 +19,7 @@ public class SpriteGridCell : MonoBehaviour
         shopIconRenderer.gameObject.SetActive(false);
         centerIconRenderer.gameObject.SetActive(false);
         shopText.gameObject.SetActive(false);
+        upgradeText.gameObject.SetActive(false);
         buttonText.gameObject.SetActive(false);
         debugText.gameObject.SetActive(false);
     }
@@ -139,5 +141,19 @@ public class SpriteGridCell : MonoBehaviour
             $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s\n{plot.elapsedTime / plot.Being.TimeToGrow * 100f:0.##}%";
 
         RenderUpgradeBorder(plot.Upgrade);
+    }
+
+    public void RenderUpgradeItem(UpgradeMenuItem upgrade)
+    {
+        HideAll();
+
+        backgroundRenderer.gameObject.SetActive(true);
+        upgradeText.gameObject.SetActive(true);
+
+        string text =
+            $"{upgrade.GetDescription()}\nBuy for ${Mathf.Floor(upgrade.UpgradeCosts[upgrade.UpgradeLevel])}\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        upgradeText.text = text;
+
+        RenderUpgradeBorder(upgrade);
     }
 }
