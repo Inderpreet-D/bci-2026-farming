@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour
 
     StateMachine stateMachine;
     public PlotItem[] PlotItems { get; private set; }
+    public int Coins { get; set; } = 100;
 
     void Start()
     {
