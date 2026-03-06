@@ -11,6 +11,26 @@ public class GameController : State
         spriteGrid.SetButtonText("Upgrade");
     }
 
+    public override void Tick()
+    {
+        base.Tick();
+
+        Debug.Log("Num plots: " + mainController.PlotItems.Length);
+        for (int i = 0; i < spriteGrid.sprites.Length; i++)
+        {
+            if (i >= mainController.PlotItems.Length)
+            {
+                break;
+            }
+
+            PlotItem plot = mainController.PlotItems[i];
+            plot.Tick();
+
+            SpriteGridCell spriteGridCell = spriteGrid.sprites[i];
+            spriteGridCell.RenderPlotItem(plot);
+        }
+    }
+
     public override void HandleButtonSelect(int index)
     {
         base.HandleButtonSelect(index);

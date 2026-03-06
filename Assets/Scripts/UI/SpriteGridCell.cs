@@ -64,4 +64,18 @@ public class SpriteGridCell : MonoBehaviour
 
         backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
     }
+
+    public void RenderPlotItem(PlotItem plot)
+    {
+        HideAll();
+
+        if (plot.IsEmpty())
+        {
+            RenderEmpty();
+            return;
+        }
+
+        debugText.text =
+            $"Growth Mult: {plot.growthRateMultiplier}\nBonus Coins: {plot.bonusCoins}\nBonus Yield: {plot.bonusYield}";
+    }
 }
