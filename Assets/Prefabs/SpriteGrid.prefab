@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ade1b0b216743c3b0e849ab740b7f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  delay: 0.3
+  delay: 0.8
   sprites: []
 --- !u!1001 &1181839452957778235
 PrefabInstance:

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpriteGridCell : MonoBehaviour
 {
+    public SpriteRenderer borderRenderer;
     public SpriteRenderer backgroundRenderer;
     public SpriteRenderer shopIconRenderer;
     public SpriteRenderer centerIconRenderer;
@@ -12,6 +13,7 @@ public class SpriteGridCell : MonoBehaviour
 
     private void HideAll()
     {
+        borderRenderer.gameObject.SetActive(false);
         backgroundRenderer.gameObject.SetActive(false);
         shopIconRenderer.gameObject.SetActive(false);
         centerIconRenderer.gameObject.SetActive(false);
@@ -65,24 +67,77 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
     }
 
+    private void RenderUpgradeBorder(UpgradeMenuItem upgrade)
+    {
+        if (upgrade == null)
+        {
+            return;
+        }
+
+        borderRenderer.gameObject.SetActive(true);
+
+        if (upgrade.UpgradeLevel == 0)
+        {
+            // Bronze color: RGB(205, 127, 50)
+            borderRenderer.color = new Color(205f / 255f, 127f / 255f, 50f / 255f);
+        }
+        else if (upgrade.UpgradeLevel == 1)
+        {
+            borderRenderer.color = Color.silver;
+        }
+        else if (upgrade.UpgradeLevel == UpgradeMenuItem.MAX_UPGRADE_LEVEL)
+        {
+            borderRenderer.color = Color.gold;
+        }
+    }
+
+    private void RenderEmptyPlot(PlotItem plot)
+    {
+        HideAll();
+
+        borderRenderer.gameObject.SetActive(true);
+        backgroundRenderer.gameObject.SetActive(true);
+
+        backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
+
+        RenderUpgradeBorder(plot.Upgrade);
+    }
+
     public void RenderPlotItem(PlotItem plot)
     {
         HideAll();
 
         if (plot.IsEmpty())
         {
-            RenderEmpty();
+            RenderEmptyPlot(plot);
             return;
         }
 
         backgroundRenderer.gameObject.SetActive(true);
+        centerIconRenderer.gameObject.SetActive(true);
         debugText.gameObject.SetActive(true);
 
-        backgroundRenderer.sprite = plot.Being.IsAnimal
-            ? Resources.Load<Sprite>("animal_bg")
-            : Resources.Load<Sprite>("plant_bg");
+        backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
+
+        if (plot.Being.Sprite == null)
+        {
+            plot.Being.Sprite = Resources.Load<Sprite>(plot.Being.IconName);
+        }
+        centerIconRenderer.sprite = plot.Being.Sprite;
+        if (plot.Being.IsAnimal)
+        {
+            backgroundRenderer.sprite = Resources.Load<Sprite>("animal_bg");
+            centerIconRenderer.color = Color.purple;
+        }
+        else
+        {
+            backgroundRenderer.sprite = Resources.Load<Sprite>("plant_bg");
+            centerIconRenderer.color = Color.white;
+        }
 
         debugText.text =
-            $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s";
+            $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s\n{plot.elapsedTime / plot.Being.TimeToGrow * 100f:0.##}%";
+
+        RenderUpgradeBorder(plot.Upgrade);
     }
 }
