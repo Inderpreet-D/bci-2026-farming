@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class State : MonoBehaviour
 {
-    public TextMeshProUGUI titleText;
     public SpriteGrid spriteGrid;
 
     public MainController mainController;
@@ -33,10 +32,5 @@ public class State : MonoBehaviour
     public virtual void HandleButtonSelect(int index)
     {
         Debug.Log("Button pressed: " + index.ToString());
-    }
-
-    public virtual void SetTitleText(string text)
-    {
-        titleText.text = text;
     }
 }

@@ -9,7 +9,6 @@ public class PlantMenuController : State
     {
         base.Enter(mainController, stateMachine);
 
-        SetTitleText("Pick something to grow in a plot");
         spriteGrid.SetButtonText("Go Back");
 
         shopItems = new PlantMenuItem[SpriteGrid.NUM_CELLS - 1]

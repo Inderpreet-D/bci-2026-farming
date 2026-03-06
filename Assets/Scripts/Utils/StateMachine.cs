@@ -12,7 +12,6 @@ public class StateMachine
         new List<State>()
         {
             mainController.trainingController,
-            mainController.tutorialController,
             mainController.gameController,
             mainController.upgradeMenuController,
             mainController.plantMenuController,

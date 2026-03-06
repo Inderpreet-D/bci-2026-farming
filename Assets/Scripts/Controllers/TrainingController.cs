@@ -17,8 +17,6 @@ public class TrainingController : State
         base.Enter(mainController, stateMachine);
 
         elapsedTime = 0.0f;
-
-        SetTitleText("In the training mode");
     }
 
     public override void Tick()
@@ -28,7 +26,7 @@ public class TrainingController : State
         elapsedTime += Time.deltaTime;
         if (elapsedTime >= TRAINING_DELAY)
         {
-            stateMachine.GotoState(stateMachine.mainController.tutorialController);
+            stateMachine.GotoState(stateMachine.mainController.gameController);
         }
     }
 }

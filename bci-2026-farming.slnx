@@ -1,3 +1,9 @@
 ﻿<Solution>
+  <Project Path="Bci4Kids.BciEssentials.LSLFramework.csproj" />
+  <Project Path="Bci4Kids.BciEssentials.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Bci4Kids.BciEssentials.Editor.csproj" />
+  <Project Path="Bci4Kids.BciEssentials.Tests.csproj" />
+  <Project Path="Bci4Kids.BciEssentials.Editor.Tests.csproj" />
+  <Project Path="Bci4Kids.BciEssentials.Tests.Utilities.csproj" />
 </Solution>

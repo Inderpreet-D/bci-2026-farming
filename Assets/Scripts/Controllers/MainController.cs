@@ -5,7 +5,6 @@ public class MainController : MonoBehaviour
     public const int UNSELECTED_PLOT_INDEX = -1;
 
     public State trainingController;
-    public State tutorialController;
     public State gameController;
     public State upgradeMenuController;
     public State plantMenuController;
