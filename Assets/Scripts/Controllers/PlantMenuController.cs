@@ -5,11 +5,6 @@ public class PlantMenuController : State
 {
     private PlantMenuItem[] shopItems;
 
-    public override void SetupSpriteGrid()
-    {
-        spriteGrid.Setup(this, new List<int> { 6, 7, 8 });
-    }
-
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
         base.Enter(mainController, stateMachine);
@@ -17,7 +12,7 @@ public class PlantMenuController : State
         SetTitleText("Pick something to grow in a plot");
         spriteGrid.SetButtonText("Go Back");
 
-        shopItems = new PlantMenuItem[]
+        shopItems = new PlantMenuItem[SpriteGrid.NUM_CELLS - 1]
         {
             // Fruits and vegetables
             new()
@@ -125,7 +120,7 @@ public class PlantMenuController : State
         base.HandleButtonSelect(index);
 
         // Selected button on the bottom row
-        if (index == 9)
+        if (index == SpriteGrid.LAST_CELL_INDEX)
         {
             Debug.Log("Cancel shop menu");
             stateMachine.GotoState(mainController.gameController);

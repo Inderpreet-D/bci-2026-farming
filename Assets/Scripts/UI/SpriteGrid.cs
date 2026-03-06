@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class SpriteGrid : MonoBehaviour
 {
+    public const int NUM_CELLS = 7;
+    public const int LAST_CELL_INDEX = NUM_CELLS - 1;
     public float delay = 0.3f;
     public SpriteGridCell[] sprites;
     private float elapsed = 0.0f;
@@ -39,9 +41,13 @@ public class SpriteGrid : MonoBehaviour
 
     public void SetButtonText(string text = "")
     {
-        if (sprites[9].TryGetComponent<SpriteGridCell>(out var lastCell))
+        if (sprites[LAST_CELL_INDEX].TryGetComponent<SpriteGridCell>(out var lastCell))
         {
             lastCell.RenderButton(text);
+        }
+        else
+        {
+            Debug.LogError("Last cell does not have a SpriteGridCell component");
         }
     }
 

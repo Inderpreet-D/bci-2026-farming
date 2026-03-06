@@ -41,7 +41,7 @@ public class GameController : State
         base.HandleButtonSelect(index);
 
         // Selected button on the bottom row
-        if (index == 9)
+        if (index == SpriteGrid.LAST_CELL_INDEX)
         {
             stateMachine.GotoState(mainController.upgradeMenuController);
             return;

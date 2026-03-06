@@ -5,6 +5,13 @@ public class TutorialController : State
     const float TUTORIAL_DELAY = 1.0f; //5.0f;
     private float elapsedTime;
 
+    public override void SetupSpriteGrid()
+    {
+        base.SetupSpriteGrid();
+
+        spriteGrid.RenderAllEmpty();
+    }
+
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
         base.Enter(mainController, stateMachine);

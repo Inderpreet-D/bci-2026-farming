@@ -18,30 +18,9 @@ public class MainController : MonoBehaviour
     void Start()
     {
         stateMachine = new StateMachine(this);
-        PlotItems = new PlotItem[]
+        PlotItems = new PlotItem[SpriteGrid.NUM_CELLS - 1]
         {
             // Regular farm plots
-            new()
-            {
-                Upgrade = new FarmUpgradeMenuItem
-                {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
-                },
-            },
-            new()
-            {
-                Upgrade = new FarmUpgradeMenuItem
-                {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
-                },
-            },
-            new()
-            {
-                Upgrade = new FarmUpgradeMenuItem
-                {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
-                },
-            },
             new()
             {
                 Upgrade = new FarmUpgradeMenuItem
