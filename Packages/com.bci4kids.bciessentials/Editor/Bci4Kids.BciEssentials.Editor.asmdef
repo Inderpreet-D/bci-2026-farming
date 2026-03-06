@@ -1,0 +1,10 @@
+{
+    "name": "Bci4Kids.BciEssentials.Editor",
+    "rootNamespace": "BciEssentials.Editor",
+    "references": [
+        "Bci4Kids.BciEssentials"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ]
+}
