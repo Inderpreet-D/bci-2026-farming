@@ -7,7 +7,7 @@ public class State : MonoBehaviour
     public TextMeshProUGUI titleText;
     public SpriteGrid spriteGrid;
 
-    protected MainController mainController;
+    public MainController mainController;
     protected StateMachine stateMachine;
 
     public virtual void SetupSpriteGrid()

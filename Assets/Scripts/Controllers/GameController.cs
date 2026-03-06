@@ -26,6 +26,11 @@ public class GameController : State
             PlotItem plot = mainController.PlotItems[i];
             plot.Tick();
 
+            if (plot.IsFullyGrown())
+            {
+                plot.Harvest(this);
+            }
+
             SpriteGridCell spriteGridCell = spriteGrid.sprites[i];
             spriteGridCell.RenderPlotItem(plot);
         }
@@ -38,7 +43,6 @@ public class GameController : State
         // Selected button on the bottom row
         if (index == 9)
         {
-            Debug.Log("Open upgrade menu");
             stateMachine.GotoState(mainController.upgradeMenuController);
             return;
         }
@@ -46,8 +50,7 @@ public class GameController : State
         // On the 3x3 grid
         if (index >= 0 && index <= 8)
         {
-            // TODO Store which grid was selected for planting
-            Debug.Log("Open plant menu");
+            mainController.LastSelectedPlotIndex = index;
             stateMachine.GotoState(mainController.plantMenuController);
             return;
         }

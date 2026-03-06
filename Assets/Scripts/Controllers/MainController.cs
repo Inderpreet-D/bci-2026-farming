@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
+    public const int UNSELECTED_PLOT_INDEX = -1;
+
     public State trainingController;
     public State tutorialController;
     public State gameController;
@@ -10,7 +12,8 @@ public class MainController : MonoBehaviour
 
     StateMachine stateMachine;
     public PlotItem[] PlotItems { get; private set; }
-    public int Coins { get; set; } = 100;
+    public float Coins { get; set; } = 100.0f;
+    public int LastSelectedPlotIndex { get; set; } = UNSELECTED_PLOT_INDEX;
 
     void Start()
     {
@@ -91,5 +94,56 @@ public class MainController : MonoBehaviour
         {
             stateMachine.Update();
         }
+    }
+
+    public bool PlantBeing(PlantMenuItem being)
+    {
+        if (LastSelectedPlotIndex == UNSELECTED_PLOT_INDEX)
+        {
+            return false;
+        }
+
+        PlotItem selectedPlot = PlotItems[LastSelectedPlotIndex];
+        if (!selectedPlot.IsEmpty())
+        {
+            return false;
+        }
+
+        if (Coins < being.PurchasePrice)
+        {
+            return false;
+        }
+
+        Coins -= being.PurchasePrice;
+        PlotItems[LastSelectedPlotIndex].PlantBeing(being);
+        LastSelectedPlotIndex = UNSELECTED_PLOT_INDEX;
+
+        return true;
+    }
+
+    public bool ApplyUpgrade(int index)
+    {
+        PlotItem selectedPlot = PlotItems[index];
+
+        if (selectedPlot.Upgrade.IsMaxLevel())
+        {
+            return false;
+        }
+
+        float upgradeCost = selectedPlot.Upgrade.GetCurrentUpgradeCost();
+        if (upgradeCost < 0f)
+        {
+            return false;
+        }
+
+        if (Coins < upgradeCost)
+        {
+            return false;
+        }
+
+        Coins -= upgradeCost;
+        selectedPlot.ApplyUpgrade();
+
+        return true;
     }
 }

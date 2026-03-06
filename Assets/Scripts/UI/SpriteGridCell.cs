@@ -75,7 +75,14 @@ public class SpriteGridCell : MonoBehaviour
             return;
         }
 
+        backgroundRenderer.gameObject.SetActive(true);
+        debugText.gameObject.SetActive(true);
+
+        backgroundRenderer.sprite = plot.Being.IsAnimal
+            ? Resources.Load<Sprite>("animal_bg")
+            : Resources.Load<Sprite>("plant_bg");
+
         debugText.text =
-            $"Growth Mult: {plot.growthRateMultiplier}\nBonus Coins: {plot.bonusCoins}\nBonus Yield: {plot.bonusYield}";
+            $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s";
     }
 }

@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class PlotItem
 {
-    public PlantMenuItem Plant { get; set; }
+    public PlantMenuItem Being { get; set; }
     public UpgradeMenuItem Upgrade { get; set; }
     public float growthRateMultiplier = 1f;
     public float bonusCoins = 0f;
     public float bonusYield = 0f;
     public bool areAnimalsAllowed = false;
-    private float elapsedTime;
+    public float elapsedTime;
 
-    public void ClearPlot()
+    public void Clear()
     {
-        Plant = null;
+        Being = null;
     }
 
-    public void PlantSeed(PlantMenuItem plant)
+    public void PlantBeing(PlantMenuItem being)
     {
-        Plant = plant.Clone();
+        Being = being.Clone();
         elapsedTime = 0f;
     }
 
-    public void HarvestPlot()
+    public void Harvest(State state)
     {
-        // TODO Update coins based on plant yield and upgrades
-        ClearPlot();
+        state.mainController.Coins += (Being.SellPrice + bonusCoins) * (Being.Yield + bonusYield);
+        Clear();
     }
 
     public bool IsEmpty()
     {
-        return Plant == null;
+        return Being == null;
     }
 
     public void ApplyUpgrade()
@@ -39,19 +39,19 @@ public class PlotItem
 
     public bool IsFullyGrown()
     {
-        if (Plant == null)
+        if (Being == null)
         {
             return false;
         }
 
-        float growthTime = Plant.TimeToGrow;
+        float growthTime = Being.TimeToGrow;
 
-        return elapsedTime >= Plant.TimeToGrow;
+        return elapsedTime >= Being.TimeToGrow;
     }
 
     public void Tick()
     {
-        if (Plant == null)
+        if (Being == null)
         {
             return;
         }

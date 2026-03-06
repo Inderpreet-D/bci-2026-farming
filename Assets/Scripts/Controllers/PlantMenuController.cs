@@ -135,9 +135,12 @@ public class PlantMenuController : State
         // On the 3x3 grid
         if (index >= 0 && index <= 8)
         {
-            Debug.Log("Plant seed at " + index);
-            // TODO Handle the planting logic
-            stateMachine.GotoState(mainController.gameController);
+            bool wasPlanted = mainController.PlantBeing(shopItems[index]);
+            if (wasPlanted)
+            {
+                stateMachine.GotoState(mainController.gameController);
+            }
+
             return;
         }
     }

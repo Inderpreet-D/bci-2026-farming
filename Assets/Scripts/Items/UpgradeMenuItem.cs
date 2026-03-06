@@ -16,4 +16,21 @@ public abstract class UpgradeMenuItem
             UpgradeLevel++;
         }
     }
+
+    public bool IsMaxLevel()
+    {
+        return UpgradeLevel >= MAX_UPGRADE_LEVEL;
+    }
+
+    public float GetCurrentUpgradeCost()
+    {
+        if (UpgradeLevel < MAX_UPGRADE_LEVEL)
+        {
+            return UpgradeCosts[UpgradeLevel];
+        }
+        else
+        {
+            return -1f; // No more upgrades available
+        }
+    }
 }

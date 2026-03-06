@@ -26,9 +26,12 @@ public class UpgradeMenuController : State
         // On the 3x3 grid
         if (index >= 0 && index <= 8)
         {
-            Debug.Log("Selected plot to upgrade " + index);
-            // TODO Handle the upgrade logic
-            stateMachine.GotoState(mainController.gameController);
+            bool wasUpgraded = mainController.ApplyUpgrade(index);
+            if (wasUpgraded)
+            {
+                stateMachine.GotoState(mainController.gameController);
+            }
+
             return;
         }
     }
