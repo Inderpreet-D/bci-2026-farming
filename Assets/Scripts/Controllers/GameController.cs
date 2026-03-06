@@ -7,6 +7,8 @@ public class GameController : State
         base.Enter(mainController, stateMachine);
 
         SetTitleText("Any game text goes up here");
+
+        spriteGrid.SetButtonText("Upgrade");
     }
 
     public override void HandleButtonSelect(int index)

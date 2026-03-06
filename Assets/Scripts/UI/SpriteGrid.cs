@@ -34,9 +34,14 @@ public class SpriteGrid : MonoBehaviour
             }
         }
 
+        SetButtonText();
+    }
+
+    public void SetButtonText(string text = "")
+    {
         if (sprites[9].TryGetComponent<SpriteGridCell>(out var lastCell))
         {
-            lastCell.RenderButton();
+            lastCell.RenderButton(text);
         }
     }
 

@@ -7,6 +7,7 @@ public class SpriteGridCell : MonoBehaviour
     public SpriteRenderer shopIconRenderer;
     public SpriteRenderer centerIconRenderer;
     public TextMeshProUGUI shopText;
+    public TextMeshProUGUI buttonText;
     public TextMeshProUGUI debugText;
 
     private void HideAll()
@@ -15,16 +16,20 @@ public class SpriteGridCell : MonoBehaviour
         shopIconRenderer.gameObject.SetActive(false);
         centerIconRenderer.gameObject.SetActive(false);
         shopText.gameObject.SetActive(false);
+        buttonText.gameObject.SetActive(false);
         debugText.gameObject.SetActive(false);
     }
 
-    public void RenderButton()
+    public void RenderButton(string text = "")
     {
         HideAll();
 
         backgroundRenderer.gameObject.SetActive(true);
+        buttonText.gameObject.SetActive(true);
 
         backgroundRenderer.sprite = Resources.Load<Sprite>("button");
+
+        buttonText.text = text;
     }
 
     public void RenderPlantMenuItem(PlantMenuItem item)
@@ -35,19 +40,19 @@ public class SpriteGridCell : MonoBehaviour
         shopIconRenderer.gameObject.SetActive(true);
         shopText.gameObject.SetActive(true);
 
-        if (item.sprite == null)
+        if (item.Sprite == null)
         {
-            item.sprite = Resources.Load<Sprite>(item.iconName);
+            item.Sprite = Resources.Load<Sprite>(item.IconName);
         }
 
-        shopIconRenderer.sprite = item.sprite;
+        shopIconRenderer.sprite = item.Sprite;
 
-        backgroundRenderer.sprite = item.isAnimal
+        backgroundRenderer.sprite = item.IsAnimal
             ? Resources.Load<Sprite>("animal_bg")
             : Resources.Load<Sprite>("plant_bg");
 
         string itemText =
-            $"{item.name}\n{item.description}\nBuy for {Mathf.Floor(item.purchasePrice)}\nTakes {Mathf.Floor(item.timeToGrow)} seconds to grow\nYields {item.yield} {item.yieldUnit}\nSells for {Mathf.Floor(item.sellPrice)} each";
+            $"{item.Name}\n{item.Description}\nBuy for ${Mathf.Floor(item.PurchasePrice)}\nTakes {Mathf.Floor(item.TimeToGrow)} seconds to grow\nYields {item.Yield} {item.YieldUnit}\nSells for ${Mathf.Floor(item.SellPrice)} each";
         shopText.text = itemText;
     }
 

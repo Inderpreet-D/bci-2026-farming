@@ -12,6 +12,8 @@ public class TutorialController : State
         elapsedTime = 0.0f;
 
         SetTitleText("Tutorial goes here");
+
+        spriteGrid.SetButtonText("Upgrade");
     }
 
     public override void Tick()

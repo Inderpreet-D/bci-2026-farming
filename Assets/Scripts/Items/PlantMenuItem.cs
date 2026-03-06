@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlantMenuItem
 {
-    public string name { get; set; }
-    public string description { get; set; }
-    public string iconName { get; set; }
-    public float timeToGrow { get; set; }
-    public int yield { get; set; }
-    public string yieldUnit { get; set; }
-    public float purchasePrice { get; set; }
-    public float sellPrice { get; set; }
-    public bool isAnimal { get; set; }
-    public Sprite sprite { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string IconName { get; set; }
+    public float TimeToGrow { get; set; }
+    public int Yield { get; set; }
+    public string YieldUnit { get; set; }
+    public float PurchasePrice { get; set; }
+    public float SellPrice { get; set; }
+    public bool IsAnimal { get; set; }
+    public Sprite Sprite { get; set; }
 }

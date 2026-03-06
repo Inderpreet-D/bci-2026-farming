@@ -7,6 +7,8 @@ public class UpgradeMenuController : State
         base.Enter(mainController, stateMachine);
 
         SetTitleText("Pick an upgrade to buy");
+
+        spriteGrid.SetButtonText("Go Back");
     }
 
     public override void HandleButtonSelect(int index)
