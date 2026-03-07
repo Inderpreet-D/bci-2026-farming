@@ -121,7 +121,6 @@ public class PlantMenuController : State
         // Selected button on the bottom row
         if (index == SpriteGrid.LAST_CELL_INDEX)
         {
-            Debug.Log("Cancel shop menu");
             stateMachine.GotoState(mainController.gameController);
             return;
         }

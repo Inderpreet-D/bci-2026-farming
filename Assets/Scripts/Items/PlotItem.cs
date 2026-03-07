@@ -45,8 +45,7 @@ public class PlotItem
         }
 
         float growthTime = Being.TimeToGrow;
-
-        return elapsedTime >= Being.TimeToGrow;
+        return elapsedTime >= growthTime;
     }
 
     public void Tick()

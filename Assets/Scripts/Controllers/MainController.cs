@@ -68,10 +68,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
-        if (stateMachine != null)
-        {
-            stateMachine.Update();
-        }
+        stateMachine?.Update();
     }
 
     public bool PlantBeing(PlantMenuItem being)

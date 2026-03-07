@@ -31,7 +31,6 @@ public class UpgradeMenuController : State
         // Selected button on the bottom row
         if (index == SpriteGrid.LAST_CELL_INDEX)
         {
-            Debug.Log("Cancel upgrade menu");
             stateMachine.GotoState(mainController.gameController);
             return;
         }
