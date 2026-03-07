@@ -10,6 +10,7 @@ public class SpriteGridCell : MonoBehaviour
     public SpriteRenderer backgroundRenderer;
     public SpriteRenderer shopIconRenderer;
     public SpriteRenderer centerIconRenderer;
+    public SpriteRenderer animalIconRenderer;
     public GameObject shopCanvas;
     public TextMeshProUGUI shopText;
     public TextMeshProUGUI upgradeText;
@@ -21,6 +22,7 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.gameObject.SetActive(false);
         shopIconRenderer.gameObject.SetActive(false);
         centerIconRenderer.gameObject.SetActive(false);
+        animalIconRenderer.gameObject.SetActive(false);
         shopCanvas.SetActive(false);
         shopText.gameObject.SetActive(false);
         upgradeText.gameObject.SetActive(false);
@@ -113,12 +115,23 @@ public class SpriteGridCell : MonoBehaviour
         }
 
         backgroundRenderer.gameObject.SetActive(true);
+
+        if (plot.areAnimalsAllowed)
+        {
+        animalIconRenderer.gameObject.SetActive(true);
+            
+        animalIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
+        } else
+        {
+            
         centerIconRenderer.gameObject.SetActive(true);
+        centerIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
+        }
 
         backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/plot");
 
-        centerIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
 
+        
         RenderUpgradeBorder(plot.Upgrade);
     }
 
