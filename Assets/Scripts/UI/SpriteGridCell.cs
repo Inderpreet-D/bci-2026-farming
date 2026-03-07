@@ -162,7 +162,7 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/empty");
     }
 
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         mainController.stateMachine.currentState.HandleButtonSelect(CellIndex);
     }
