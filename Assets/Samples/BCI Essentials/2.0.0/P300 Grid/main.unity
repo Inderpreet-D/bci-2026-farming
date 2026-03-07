@@ -708,8 +708,8 @@ GameObject:
   m_Component:
   - component: {fileID: 362329381}
   - component: {fileID: 362329382}
-  - component: {fileID: 362329383}
   - component: {fileID: 362329384}
+  - component: {fileID: 362329385}
   m_Layer: 0
   m_Name: Stimulus Presenters
   m_TagString: Untagged
@@ -763,19 +763,6 @@ MonoBehaviour:
   _rowCount: 2
   _columnCount: 3
   _spacing: {x: 2, y: 2}
---- !u!114 &362329383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 362329380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b614a82ce0fa3245979d1db3a61c408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Bci4Kids.BciEssentials::BCIEssentials.Selection.StimulusPresenterCollectionSelector
-  _target: {fileID: 362329382}
 --- !u!114 &362329384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,6 +775,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 311dfe5af981ee54c87b53d6f58e40ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Bci4Kids.BciEssentials::BCIEssentials.Training.StimulusPresenterCollectionTargetIndicator
+  _target: {fileID: 362329382}
+--- !u!114 &362329385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362329380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a83b8cc1371a6480fb2e26dc056602bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BCIEssentials.Selection.CustomSelector
   _target: {fileID: 362329382}
 --- !u!1 &367553056
 GameObject:

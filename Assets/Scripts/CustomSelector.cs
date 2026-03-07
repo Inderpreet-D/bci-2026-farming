@@ -18,9 +18,9 @@ namespace BCIEssentials.Selection
         public override void OnPrediction(Prediction prediction)
         {
             var presenter = _target.LatestSubset[prediction.Index];
+            Debug.Log($"Selected {presenter.name} with prediction index {prediction.Index}");
             presenter.Select();
             presenter.GetComponentInChildren<SpriteGridCell>().OnMouseDown();
-
         }
     }
 }
