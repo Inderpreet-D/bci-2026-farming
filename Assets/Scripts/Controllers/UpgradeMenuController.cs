@@ -37,7 +37,7 @@ public class UpgradeMenuController : State
         }
 
         // On the 3x3 grid
-        if (index >= 0 && index <= 8)
+        if (index >= 0 && index <= SpriteGrid.NUM_CELLS - 1)
         {
             bool wasUpgraded = mainController.ApplyUpgrade(index);
             if (wasUpgraded)
