@@ -31,7 +31,7 @@ public class PlantMenuController : State
                 // Animals
                 new()
                 {
-                    IconName = "sprites/animals/cow",
+                    IconName = "sprites/animals/cow/cow",
                     TimeToGrow = 100f,
                     Yield = 3,
                     PurchasePrice = 60f,
@@ -40,7 +40,7 @@ public class PlantMenuController : State
                 },
                 new()
                 {
-                    IconName = "sprites/animals/chicken",
+                    IconName = "sprites/animals/chicken/chicken",
                     TimeToGrow = 100f,
                     Yield = 6,
                     PurchasePrice = 40f,
@@ -49,7 +49,7 @@ public class PlantMenuController : State
                 },
                 new()
                 {
-                    IconName = "sprites/animals/bee",
+                    IconName = "sprites/animals/bee/bee",
                     TimeToGrow = 150f,
                     Yield = 4,
                     PurchasePrice = 50f,
