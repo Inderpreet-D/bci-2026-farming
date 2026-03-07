@@ -4,6 +4,8 @@ public class MainController : MonoBehaviour
 {
     public const int UNSELECTED_PLOT_INDEX = -1;
 
+    public GameObject spriteParent;
+
     public State trainingController;
     public State gameController;
     public State upgradeMenuController;
@@ -131,5 +133,10 @@ public class MainController : MonoBehaviour
         selectedPlot.ApplyUpgrade();
 
         return true;
+    }
+
+    public SpriteGridCell[] GetAllSpriteGridCells()
+    {
+        return spriteParent.GetComponentsInChildren<SpriteGridCell>(true);
     }
 }

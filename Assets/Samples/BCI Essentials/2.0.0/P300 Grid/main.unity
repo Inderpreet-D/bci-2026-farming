@@ -611,7 +611,6 @@ GameObject:
   - component: {fileID: 413629348}
   - component: {fileID: 413629347}
   - component: {fileID: 413629346}
-  - component: {fileID: 413629350}
   m_Layer: 0
   m_Name: Stimulus Presenter 1
   m_TagString: Untagged
@@ -724,26 +723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colourFlashBehaviour: {fileID: 413629348}
---- !u!114 &413629350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 413629344}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86cb158b105814aaeaf39b2442f16ace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpriteGridCell
-  borderRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  shopIconRenderer: {fileID: 0}
-  centerIconRenderer: {fileID: 0}
-  shopText: {fileID: 0}
-  upgradeText: {fileID: 0}
-  buttonText: {fileID: 0}
-  debugText: {fileID: 0}
 --- !u!4 &436277286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3188631956509916179, guid: 14edc7abf26d64e0890dc9786d3cd531, type: 3}
@@ -1957,6 +1936,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2068759206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2068759208}
+  - component: {fileID: 2068759207}
+  m_Layer: 0
+  m_Name: MainController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2068759207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068759206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36a3d48d2163e4774b6b010daaf7c0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainController
+  spriteParent: {fileID: 728918688}
+--- !u!4 &2068759208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068759206}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2133327095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,4 +2112,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1939034418}
   - {fileID: 1981893900}
+  - {fileID: 2068759208}
   - {fileID: 728918689}

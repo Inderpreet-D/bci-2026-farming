@@ -126,16 +126,6 @@ public class SpriteGridCell : MonoBehaviour
             plot.Being.Sprite = Resources.Load<Sprite>(plot.Being.IconName);
         }
         centerIconRenderer.sprite = plot.Being.Sprite;
-        if (plot.Being.IsAnimal)
-        {
-            backgroundRenderer.sprite = Resources.Load<Sprite>("animal_bg");
-            centerIconRenderer.color = Color.purple;
-        }
-        else
-        {
-            backgroundRenderer.sprite = Resources.Load<Sprite>("plant_bg");
-            centerIconRenderer.color = Color.white;
-        }
 
         debugText.text =
             $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s\n{plot.elapsedTime / plot.Being.TimeToGrow * 100f:0.##}%";
