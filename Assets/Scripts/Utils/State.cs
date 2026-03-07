@@ -37,8 +37,5 @@ public class State
 
     public virtual void Tick() { }
 
-    public virtual void HandleButtonSelect(int index)
-    {
-        Debug.Log("Button pressed: " + index.ToString());
-    }
+    public virtual void HandleButtonSelect(int index) { }
 }

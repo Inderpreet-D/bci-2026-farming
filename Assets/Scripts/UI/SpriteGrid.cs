@@ -9,34 +9,9 @@ public class SpriteGrid
     public float delay = 0.3f;
     public SpriteGridCell[] sprites;
 
-    // private float elapsed = 0.0f;
-    // private int index = 0;
-    private State parentState;
-    private InputAction selectAction;
-    private List<int> hiddenIndices;
-
     public void Setup(State parentState, List<int> hiddenIndices)
     {
         sprites = parentState.mainController.GetAllSpriteGridCells();
-        Debug.Log("Found " + sprites.Length + " sprites in the grid");
-        for (int i = 0; i < sprites.Length; i++)
-        {
-            Debug.Log(
-                "Sprite "
-                    + i
-                    + ": "
-                    + sprites[i].name
-                    + ", parent: "
-                    + sprites[i].transform.parent.name
-            );
-        }
-        selectAction = InputSystem.actions.FindAction("Jump");
-
-        this.parentState = parentState;
-        this.hiddenIndices = hiddenIndices;
-        // elapsed = 0.0f;
-        // index = 0;
-        // UpdateSprites();
 
         for (int i = 0; i < sprites.Length; i++)
         {
@@ -74,48 +49,4 @@ public class SpriteGrid
             sprite.RenderEmpty();
         }
     }
-
-    // private void UpdateSprites()
-    // {
-    //     if (sprites == null)
-    //     {
-    //         return;
-    //     }
-
-    //     for (int i = 0; i < sprites.Length; i++)
-    //     {
-    //         SpriteGridCell sprite = sprites[i];
-    //         if (i == index)
-    //         {
-    //             sprite.backgroundRenderer.color = Color.red;
-    //         }
-    //         else
-    //         {
-    //             sprite.backgroundRenderer.color = Color.white;
-    //         }
-    //     }
-    // }
-
-    // void Update()
-    // {
-    //     if (selectAction.WasPressedThisFrame() && parentState != null)
-    //     {
-    //         parentState.HandleButtonSelect(index);
-    //         return;
-    //     }
-
-    //     elapsed += Time.deltaTime;
-    //     if (elapsed >= delay)
-    //     {
-    //         elapsed = 0.0f;
-
-    //         // Skip hidden indices
-    //         do
-    //         {
-    //             index = (index + 1) % sprites.Length;
-    //         } while (hiddenIndices.Contains(index));
-    //     }
-
-    //     UpdateSprites();
-    // }
 }

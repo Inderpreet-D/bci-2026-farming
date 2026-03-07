@@ -13,7 +13,7 @@ public class MainController : MonoBehaviour
 
     public StateMachine stateMachine { get; private set; }
     public PlotItem[] PlotItems { get; private set; }
-    public float Coins { get; set; } = 100.0f;
+    public float Coins { get; set; } = 400.0f;
     public int LastSelectedPlotIndex { get; set; } = UNSELECTED_PLOT_INDEX;
 
     void Start()
@@ -34,21 +34,21 @@ public class MainController : MonoBehaviour
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             new()
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             new()
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             // Animal pens
@@ -56,21 +56,21 @@ public class MainController : MonoBehaviour
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
             new()
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
             new()
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
         };
@@ -78,10 +78,7 @@ public class MainController : MonoBehaviour
 
     void Update()
     {
-        if (stateMachine != null)
-        {
-            stateMachine.Update();
-        }
+        stateMachine?.Update();
     }
 
     public bool PlantBeing(PlantMenuItem being)
