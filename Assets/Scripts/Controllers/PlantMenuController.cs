@@ -5,6 +5,9 @@ public class PlantMenuController : State
 {
     private PlantMenuItem[] shopItems;
 
+    public PlantMenuController(MainController mainController, StateMachine stateMachine)
+        : base(mainController, stateMachine) { }
+
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
         base.Enter(mainController, stateMachine);

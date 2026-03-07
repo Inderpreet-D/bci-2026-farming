@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SpriteGrid : MonoBehaviour
+public class SpriteGrid
 {
     public const int NUM_CELLS = 7;
     public const int LAST_CELL_INDEX = NUM_CELLS - 1;
@@ -16,7 +16,9 @@ public class SpriteGrid : MonoBehaviour
 
     public void Setup(State parentState, List<int> hiddenIndices)
     {
-        sprites = GetComponentsInChildren<SpriteGridCell>(true);
+        sprites = parentState.mainController.GetComponentsInChildren<SpriteGridCell>(true);
+        selectAction = InputSystem.actions.FindAction("Jump");
+
         this.parentState = parentState;
         this.hiddenIndices = hiddenIndices;
         elapsed = 0.0f;
@@ -58,12 +60,6 @@ public class SpriteGrid : MonoBehaviour
             SpriteGridCell sprite = sprites[i];
             sprite.RenderEmpty();
         }
-    }
-
-    void Start()
-    {
-        sprites = GetComponentsInChildren<SpriteGridCell>(true);
-        selectAction = InputSystem.actions.FindAction("Jump");
     }
 
     private void UpdateSprites()

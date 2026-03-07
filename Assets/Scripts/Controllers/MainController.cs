@@ -17,6 +17,14 @@ public class MainController : MonoBehaviour
     void Start()
     {
         stateMachine = new StateMachine(this);
+
+        trainingController = new TrainingController(this, stateMachine);
+        gameController = new GameController(this, stateMachine);
+        upgradeMenuController = new UpgradeMenuController(this, stateMachine);
+        plantMenuController = new PlantMenuController(this, stateMachine);
+
+        stateMachine.GotoState(trainingController);
+
         PlotItems = new PlotItem[SpriteGrid.NUM_CELLS - 1]
         {
             // Regular farm plots

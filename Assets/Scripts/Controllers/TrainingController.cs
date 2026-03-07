@@ -5,6 +5,9 @@ public class TrainingController : State
     const float TRAINING_DELAY = 1.0f; //5.0f;
     private float elapsedTime;
 
+    public TrainingController(MainController mainController, StateMachine stateMachine)
+        : base(mainController, stateMachine) { }
+
     public override void SetupSpriteGrid()
     {
         base.SetupSpriteGrid();

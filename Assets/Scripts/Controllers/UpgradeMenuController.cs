@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class UpgradeMenuController : State
 {
+    public UpgradeMenuController(MainController mainController, StateMachine stateMachine)
+        : base(mainController, stateMachine) { }
+
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
         base.Enter(mainController, stateMachine);
