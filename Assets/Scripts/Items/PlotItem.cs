@@ -21,10 +21,14 @@ public class PlotItem
         elapsedTime = 0f;
     }
 
-    public void Harvest(State state)
+    public float Harvest(State state)
     {
-        state.mainController.Coins += (Being.SellPrice + bonusCoins) * (Being.Yield + bonusYield);
+        float totalYield = Being.Yield + bonusYield;
+
+        state.mainController.Coins += (Being.SellPrice + bonusCoins) * totalYield;
         Clear();
+
+        return totalYield;
     }
 
     public bool IsEmpty()

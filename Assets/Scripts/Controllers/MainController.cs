@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour
     public State gameController;
     public State upgradeMenuController;
     public State plantMenuController;
+    public State endScreenController;
 
     public StateMachine stateMachine { get; private set; }
     public PlotItem[] PlotItems { get; private set; }
@@ -24,6 +25,7 @@ public class MainController : MonoBehaviour
         gameController = new GameController(this, stateMachine);
         upgradeMenuController = new UpgradeMenuController(this, stateMachine);
         plantMenuController = new PlantMenuController(this, stateMachine);
+        endScreenController = new EndScreenController(this, stateMachine);
 
         stateMachine.GotoState(trainingController);
 
