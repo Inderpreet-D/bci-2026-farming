@@ -50,8 +50,13 @@ public class GameController : State
         // On the 3x3 grid
         if (index >= 0 && index <= 8)
         {
-            mainController.LastSelectedPlotIndex = index;
-            stateMachine.GotoState(mainController.plantMenuController);
+            PlotItem plot = mainController.PlotItems[index];
+            if (plot.IsEmpty())
+            {
+                mainController.LastSelectedPlotIndex = index;
+                stateMachine.GotoState(mainController.plantMenuController);
+            }
+
             return;
         }
     }
