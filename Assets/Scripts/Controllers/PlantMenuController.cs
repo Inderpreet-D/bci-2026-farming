@@ -32,16 +32,16 @@ public class PlantMenuController : State
                 new()
                 {
                     IconName = "sprites/animals/cow/cow",
-                    TimeToGrow = 100f,
+                    TimeToGrow = 50f,
                     Yield = 3,
-                    PurchasePrice = 60f,
+                    PurchasePrice = 75f,
                     SellPrice = 30f,
                     IsAnimal = true,
                 },
                 new()
                 {
                     IconName = "sprites/animals/chicken/chicken",
-                    TimeToGrow = 100f,
+                    TimeToGrow = 50f,
                     Yield = 6,
                     PurchasePrice = 40f,
                     SellPrice = 8f,
@@ -50,9 +50,9 @@ public class PlantMenuController : State
                 new()
                 {
                     IconName = "sprites/animals/bee/bee",
-                    TimeToGrow = 150f,
+                    TimeToGrow = 100f,
                     Yield = 4,
-                    PurchasePrice = 50f,
+                    PurchasePrice = 80f,
                     SellPrice = 35f,
                     IsAnimal = true,
                 },
@@ -65,43 +65,73 @@ public class PlantMenuController : State
                 new()
                 {
                     IconName = "sprites/crops/lettuce/lettuce_2",
-                    TimeToGrow = 150f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/lettuce/lettuce_1",
+                        "sprites/crops/lettuce/lettuce_2",
+                    },
+                    TimeToGrow = 100f,
                     Yield = 1,
-                    PurchasePrice = 3f,
+                    PurchasePrice = 15f,
                     SellPrice = 30f,
                     IsAnimal = false,
                 },
                 new()
                 {
                     IconName = "sprites/crops/tomato/tomato_2",
-                    TimeToGrow = 100f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/tomato/tomato_1",
+                        "sprites/crops/tomato/tomato_2",
+                    },
+                    TimeToGrow = 50f,
                     Yield = 6,
-                    PurchasePrice = 3f,
+                    PurchasePrice = 10f,
                     SellPrice = 3f,
                     IsAnimal = false,
                 },
                 new()
                 {
                     IconName = "sprites/crops/carrot/carrot",
-                    TimeToGrow = 150f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/carrot/carrot_1",
+                        "sprites/crops/carrot/carrot_2",
+                    },
+                    TimeToGrow = 75f,
                     Yield = 5,
-                    PurchasePrice = 4f,
+                    PurchasePrice = 12f,
                     SellPrice = 4f,
                     IsAnimal = false,
                 },
                 new()
                 {
                     IconName = "sprites/crops/apple/apple",
-                    TimeToGrow = 300f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/apple/apple_tree",
+                        "sprites/crops/apple/apple_tree_grown",
+                    },
+                    TimeToGrow = 150f,
                     Yield = 8,
-                    PurchasePrice = 7f,
+                    PurchasePrice = 50f,
                     SellPrice = 8f,
                     IsAnimal = false,
                 },
                 new()
                 {
                     IconName = "sprites/crops/blueberries/blueberry",
-                    TimeToGrow = 50f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/blueberries/blueberry_bush_1",
+                        "sprites/crops/blueberries/blueberry_bush_2",
+                    },
+                    TimeToGrow = 25f,
                     Yield = 20,
                     PurchasePrice = 10f,
                     SellPrice = 1f,
@@ -110,9 +140,15 @@ public class PlantMenuController : State
                 new()
                 {
                     IconName = "sprites/crops/pumpkin/pumpkin_2",
-                    TimeToGrow = 300f,
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/pumpkin/pumpkin_1",
+                        "sprites/crops/pumpkin/pumpkin_2",
+                    },
+                    TimeToGrow = 150f,
                     Yield = 4,
-                    PurchasePrice = 15f,
+                    PurchasePrice = 25f,
                     SellPrice = 15f,
                     IsAnimal = false,
                 },

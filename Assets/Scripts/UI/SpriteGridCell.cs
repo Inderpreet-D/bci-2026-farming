@@ -118,20 +118,22 @@ public class SpriteGridCell : MonoBehaviour
 
         if (plot.areAnimalsAllowed)
         {
-        animalIconRenderer.gameObject.SetActive(true);
-            
-        animalIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
-        } else
+            animalIconRenderer.gameObject.SetActive(true);
+            animalIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
+        }
+        else
         {
-            
-        centerIconRenderer.gameObject.SetActive(true);
-        centerIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
+            centerIconRenderer.gameObject.SetActive(true);
+            int numIcons = plot.Being.GrowthStageIconNames.Length;
+            int iconIndex = Mathf.FloorToInt(plot.GetGrowthPercentage() * numIcons);
+            iconIndex = Mathf.Clamp(iconIndex, 0, numIcons - 1);
+            centerIconRenderer.sprite = Resources.Load<Sprite>(
+                plot.Being.GrowthStageIconNames[iconIndex]
+            );
         }
 
         backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/plot");
 
-
-        
         RenderUpgradeBorder(plot.Upgrade);
     }
 

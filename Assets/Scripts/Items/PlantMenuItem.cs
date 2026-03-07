@@ -3,6 +3,8 @@ using UnityEngine;
 public class PlantMenuItem
 {
     public string IconName { get; set; }
+
+    public string[] GrowthStageIconNames { get; set; } = new string[0];
     public float TimeToGrow { get; set; }
     public int Yield { get; set; }
     public float PurchasePrice { get; set; }
@@ -19,6 +21,7 @@ public class PlantMenuItem
             PurchasePrice = PurchasePrice,
             SellPrice = SellPrice,
             IsAnimal = IsAnimal,
+            GrowthStageIconNames = (string[])GrowthStageIconNames.Clone(),
         };
     }
 }

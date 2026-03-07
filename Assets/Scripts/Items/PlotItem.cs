@@ -63,4 +63,14 @@ public class PlotItem
 
         elapsedTime += Time.deltaTime * growthRateMultiplier;
     }
+
+    public float GetGrowthPercentage()
+    {
+        if (Being == null)
+        {
+            return 0f;
+        }
+
+        return Mathf.Clamp01(elapsedTime / Being.TimeToGrow);
+    }
 }
