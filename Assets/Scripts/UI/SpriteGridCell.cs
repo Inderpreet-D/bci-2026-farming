@@ -1,8 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SpriteGridCell : MonoBehaviour
 {
+    public int CellIndex;
+    public MainController mainController;
     public SpriteRenderer borderRenderer;
     public SpriteRenderer backgroundRenderer;
     public SpriteRenderer shopIconRenderer;
@@ -140,10 +143,25 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.gameObject.SetActive(true);
         upgradeText.gameObject.SetActive(true);
 
-        string text =
-            $"{upgrade.GetDescription()}\nBuy for ${Mathf.Floor(upgrade.UpgradeCosts[upgrade.UpgradeLevel])}\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        string text;
+        if (upgrade.UpgradeLevel >= UpgradeMenuItem.MAX_UPGRADE_LEVEL)
+        {
+            text =
+                $"{upgrade.GetDescription()}\nUpgrade maxed out\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        }
+        else
+        {
+            text =
+                $"{upgrade.GetDescription()}\nBuy for ${Mathf.Floor(upgrade.UpgradeCosts[upgrade.UpgradeLevel])}\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        }
         upgradeText.text = text;
 
         RenderUpgradeBorder(upgrade);
+    }
+
+    void OnMouseDown()
+    {
+        Debug.Log("Clicked on cell: " + CellIndex);
+        mainController.stateMachine.currentState.HandleButtonSelect(CellIndex);
     }
 }

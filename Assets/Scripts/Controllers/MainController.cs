@@ -11,7 +11,7 @@ public class MainController : MonoBehaviour
     public State upgradeMenuController;
     public State plantMenuController;
 
-    StateMachine stateMachine;
+    public StateMachine stateMachine { get; private set; }
     public PlotItem[] PlotItems { get; private set; }
     public float Coins { get; set; } = 100.0f;
     public int LastSelectedPlotIndex { get; set; } = UNSELECTED_PLOT_INDEX;
@@ -137,6 +137,12 @@ public class MainController : MonoBehaviour
 
     public SpriteGridCell[] GetAllSpriteGridCells()
     {
-        return spriteParent.GetComponentsInChildren<SpriteGridCell>(true);
+        SpriteGridCell[] sprites = spriteParent.GetComponentsInChildren<SpriteGridCell>(true);
+
+        foreach (SpriteGridCell sprite in sprites)
+        {
+            sprite.mainController = this;
+        }
+        return sprites;
     }
 }

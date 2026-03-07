@@ -16,7 +16,6 @@ public class GameController : State
     {
         base.Tick();
 
-        Debug.Log("Num plots: " + mainController.PlotItems.Length);
         for (int i = 0; i < spriteGrid.sprites.Length; i++)
         {
             if (i >= mainController.PlotItems.Length)
