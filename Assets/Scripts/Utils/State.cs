@@ -2,12 +2,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class State : MonoBehaviour
+public class State
 {
-    public SpriteGrid spriteGrid;
-
     public MainController mainController;
     protected StateMachine stateMachine;
+    public SpriteGrid spriteGrid;
+    public bool IsActive { get; set; }
+
+    public State(MainController mainController, StateMachine stateMachine)
+    {
+        this.mainController = mainController;
+        this.stateMachine = stateMachine;
+        spriteGrid = new SpriteGrid();
+        IsActive = false;
+    }
 
     public virtual void SetupSpriteGrid()
     {
@@ -16,7 +24,7 @@ public class State : MonoBehaviour
 
     public virtual void Enter(MainController mainController, StateMachine stateMachine)
     {
-        gameObject.SetActive(true);
+        IsActive = true;
         this.mainController = mainController;
         this.stateMachine = stateMachine;
         SetupSpriteGrid();
@@ -24,13 +32,10 @@ public class State : MonoBehaviour
 
     public virtual void Exit()
     {
-        gameObject.SetActive(false);
+        IsActive = false;
     }
 
     public virtual void Tick() { }
 
-    public virtual void HandleButtonSelect(int index)
-    {
-        Debug.Log("Button pressed: " + index.ToString());
-    }
+    public virtual void HandleButtonSelect(int index) { }
 }

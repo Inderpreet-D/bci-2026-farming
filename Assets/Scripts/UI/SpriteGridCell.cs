@@ -1,16 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SpriteGridCell : MonoBehaviour
 {
+    public int CellIndex;
+    public MainController mainController;
     public SpriteRenderer borderRenderer;
     public SpriteRenderer backgroundRenderer;
     public SpriteRenderer shopIconRenderer;
     public SpriteRenderer centerIconRenderer;
+    public SpriteRenderer animalIconRenderer;
+    public GameObject shopCanvas;
     public TextMeshProUGUI shopText;
     public TextMeshProUGUI upgradeText;
     public TextMeshProUGUI buttonText;
-    public TextMeshProUGUI debugText;
 
     private void HideAll()
     {
@@ -18,10 +22,11 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.gameObject.SetActive(false);
         shopIconRenderer.gameObject.SetActive(false);
         centerIconRenderer.gameObject.SetActive(false);
+        animalIconRenderer.gameObject.SetActive(false);
+        shopCanvas.SetActive(false);
         shopText.gameObject.SetActive(false);
         upgradeText.gameObject.SetActive(false);
         buttonText.gameObject.SetActive(false);
-        debugText.gameObject.SetActive(false);
     }
 
     public void RenderButton(string text = "")
@@ -31,7 +36,7 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.gameObject.SetActive(true);
         buttonText.gameObject.SetActive(true);
 
-        backgroundRenderer.sprite = Resources.Load<Sprite>("button");
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/button");
 
         buttonText.text = text;
     }
@@ -42,21 +47,15 @@ public class SpriteGridCell : MonoBehaviour
 
         backgroundRenderer.gameObject.SetActive(true);
         shopIconRenderer.gameObject.SetActive(true);
+        shopCanvas.SetActive(true);
         shopText.gameObject.SetActive(true);
 
-        if (item.Sprite == null)
-        {
-            item.Sprite = Resources.Load<Sprite>(item.IconName);
-        }
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/empty");
 
-        shopIconRenderer.sprite = item.Sprite;
-
-        backgroundRenderer.sprite = item.IsAnimal
-            ? Resources.Load<Sprite>("animal_bg")
-            : Resources.Load<Sprite>("plant_bg");
+        shopIconRenderer.sprite = Resources.Load<Sprite>(item.IconName);
 
         string itemText =
-            $"{item.Name}\n{item.Description}\nBuy for ${Mathf.Floor(item.PurchasePrice)}\nTakes {Mathf.Floor(item.TimeToGrow)} seconds to grow\nYields {item.Yield} {item.YieldUnit}\nSells for ${Mathf.Floor(item.SellPrice)} each";
+            $"Buy\n{item.PurchasePrice}\n\nSell\n{item.SellPrice}\n\n{item.TimeToGrow}";
         shopText.text = itemText;
     }
 
@@ -66,7 +65,7 @@ public class SpriteGridCell : MonoBehaviour
 
         backgroundRenderer.gameObject.SetActive(true);
 
-        backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/empty");
     }
 
     private void RenderUpgradeBorder(UpgradeMenuItem upgrade)
@@ -100,7 +99,7 @@ public class SpriteGridCell : MonoBehaviour
         borderRenderer.gameObject.SetActive(true);
         backgroundRenderer.gameObject.SetActive(true);
 
-        backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/plot");
 
         RenderUpgradeBorder(plot.Upgrade);
     }
@@ -116,29 +115,24 @@ public class SpriteGridCell : MonoBehaviour
         }
 
         backgroundRenderer.gameObject.SetActive(true);
-        centerIconRenderer.gameObject.SetActive(true);
-        debugText.gameObject.SetActive(true);
 
-        backgroundRenderer.sprite = Resources.Load<Sprite>("empty");
-
-        if (plot.Being.Sprite == null)
+        if (plot.areAnimalsAllowed)
         {
-            plot.Being.Sprite = Resources.Load<Sprite>(plot.Being.IconName);
-        }
-        centerIconRenderer.sprite = plot.Being.Sprite;
-        if (plot.Being.IsAnimal)
-        {
-            backgroundRenderer.sprite = Resources.Load<Sprite>("animal_bg");
-            centerIconRenderer.color = Color.purple;
+            animalIconRenderer.gameObject.SetActive(true);
+            animalIconRenderer.sprite = Resources.Load<Sprite>(plot.Being.IconName);
         }
         else
         {
-            backgroundRenderer.sprite = Resources.Load<Sprite>("plant_bg");
-            centerIconRenderer.color = Color.white;
+            centerIconRenderer.gameObject.SetActive(true);
+            int numIcons = plot.Being.GrowthStageIconNames.Length;
+            int iconIndex = Mathf.FloorToInt(plot.GetGrowthPercentage() * numIcons);
+            iconIndex = Mathf.Clamp(iconIndex, 0, numIcons - 1);
+            centerIconRenderer.sprite = Resources.Load<Sprite>(
+                plot.Being.GrowthStageIconNames[iconIndex]
+            );
         }
 
-        debugText.text =
-            $"{plot.Being.Name}\nTime: {Mathf.Floor(plot.elapsedTime)}/{Mathf.Ceil(plot.Being.TimeToGrow)}s\n{plot.elapsedTime / plot.Being.TimeToGrow * 100f:0.##}%";
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/plot");
 
         RenderUpgradeBorder(plot.Upgrade);
     }
@@ -150,10 +144,26 @@ public class SpriteGridCell : MonoBehaviour
         backgroundRenderer.gameObject.SetActive(true);
         upgradeText.gameObject.SetActive(true);
 
-        string text =
-            $"{upgrade.GetDescription()}\nBuy for ${Mathf.Floor(upgrade.UpgradeCosts[upgrade.UpgradeLevel])}\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        string text;
+        if (upgrade.UpgradeLevel >= UpgradeMenuItem.MAX_UPGRADE_LEVEL)
+        {
+            text =
+                $"{upgrade.GetDescription()}\nUpgrade maxed out\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        }
+        else
+        {
+            text =
+                $"{upgrade.GetDescription()}\nBuy for ${Mathf.Floor(upgrade.UpgradeCosts[upgrade.UpgradeLevel])}\nCurrent level: {upgrade.UpgradeLevel}/{UpgradeMenuItem.MAX_UPGRADE_LEVEL}";
+        }
         upgradeText.text = text;
 
         RenderUpgradeBorder(upgrade);
+
+        backgroundRenderer.sprite = Resources.Load<Sprite>("sprites/general/empty");
+    }
+
+    public void OnMouseDown()
+    {
+        mainController.stateMachine.currentState.HandleButtonSelect(CellIndex);
     }
 }

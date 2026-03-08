@@ -1,22 +1,52 @@
+using TMPro;
 using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
     public const int UNSELECTED_PLOT_INDEX = -1;
 
+    public GameObject spriteParent;
+    public GameObject marketParent;
+    public TextMeshProUGUI trainingText;
+    public GameObject gameOverBoard;
+    public TextMeshProUGUI gameOverText;
+    public SpriteRenderer sunSprite;
+    public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI blueberryText;
+    public TextMeshProUGUI tomatoText;
+    public TextMeshProUGUI eggText;
+    public TextMeshProUGUI appleText;
+    public TextMeshProUGUI lettuceText;
+    public TextMeshProUGUI honeyText;
+    public TextMeshProUGUI pumpkinText;
+    public TextMeshProUGUI carrotText;
+    public TextMeshProUGUI milkText;
+
     public State trainingController;
     public State gameController;
     public State upgradeMenuController;
     public State plantMenuController;
+    public State endScreenController;
 
-    StateMachine stateMachine;
+    public StateMachine stateMachine { get; private set; }
     public PlotItem[] PlotItems { get; private set; }
-    public float Coins { get; set; } = 100.0f;
+    public float Coins { get; set; } = 400.0f;
+    public float Score { get; set; } = 0.0f;
     public int LastSelectedPlotIndex { get; set; } = UNSELECTED_PLOT_INDEX;
 
     void Start()
     {
         stateMachine = new StateMachine(this);
+
+        trainingController = new TrainingController(this, stateMachine);
+        gameController = new GameController(this, stateMachine);
+        upgradeMenuController = new UpgradeMenuController(this, stateMachine);
+        plantMenuController = new PlantMenuController(this, stateMachine);
+        endScreenController = new EndScreenController(this, stateMachine);
+
+        stateMachine.GotoState(trainingController);
+
         PlotItems = new PlotItem[SpriteGrid.NUM_CELLS - 1]
         {
             // Regular farm plots
@@ -24,21 +54,21 @@ public class MainController : MonoBehaviour
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             new()
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             new()
             {
                 Upgrade = new FarmUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 5f, 10f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 150f, 300f },
                 },
             },
             // Animal pens
@@ -46,21 +76,21 @@ public class MainController : MonoBehaviour
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
             new()
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
             new()
             {
                 Upgrade = new AnimalUpgradeMenuItem
                 {
-                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 10f, 20f },
+                    UpgradeCosts = new float[UpgradeMenuItem.MAX_UPGRADE_LEVEL] { 250f, 500f },
                 },
             },
         };
@@ -69,6 +99,8 @@ public class MainController : MonoBehaviour
     void Update()
     {
         stateMachine?.Update();
+        // Format coins with commas and no decimal places
+        coinsText.text = Coins.ToString("N0");
     }
 
     public bool PlantBeing(PlantMenuItem being)
@@ -100,6 +132,11 @@ public class MainController : MonoBehaviour
     {
         PlotItem selectedPlot = PlotItems[index];
 
+        if (!selectedPlot.IsEmpty())
+        {
+            return false;
+        }
+
         if (selectedPlot.Upgrade.IsMaxLevel())
         {
             return false;
@@ -120,5 +157,16 @@ public class MainController : MonoBehaviour
         selectedPlot.ApplyUpgrade();
 
         return true;
+    }
+
+    public SpriteGridCell[] GetAllSpriteGridCells()
+    {
+        SpriteGridCell[] sprites = spriteParent.GetComponentsInChildren<SpriteGridCell>(true);
+
+        foreach (SpriteGridCell sprite in sprites)
+        {
+            sprite.mainController = this;
+        }
+        return sprites;
     }
 }

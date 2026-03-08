@@ -5,89 +5,168 @@ public class PlantMenuController : State
 {
     private PlantMenuItem[] shopItems;
 
+    public PlantMenuController(MainController mainController, StateMachine stateMachine)
+        : base(mainController, stateMachine) { }
+
+    public override void SetupSpriteGrid()
+    {
+        if (shopItems.Length == 6)
+        {
+            spriteGrid.Setup(this, new List<int> { });
+        }
+        else
+        {
+            spriteGrid.Setup(this, new List<int> { 3, 4, 5 });
+        }
+    }
+
     public override void Enter(MainController mainController, StateMachine stateMachine)
     {
+        PlotItem plot = mainController.PlotItems[mainController.LastSelectedPlotIndex];
+        if (plot.areAnimalsAllowed)
+        {
+            // If the plot has an animal upgrade, only show animal options
+            shopItems = new PlantMenuItem[SpriteGrid.NUM_CELLS - 4]
+            {
+                // Animals
+                new()
+                {
+                    ID = "cow",
+                    IconName = "sprites/animals/cow/cow",
+                    TimeToGrow = 5f,
+                    Yield = 3,
+                    PurchasePrice = 75f,
+                    SellPrice = 30f,
+                    IsAnimal = true,
+                },
+                new()
+                {
+                    ID = "chicken",
+                    IconName = "sprites/animals/chicken/chicken",
+                    TimeToGrow = 5f,
+                    Yield = 6,
+                    PurchasePrice = 40f,
+                    SellPrice = 8f,
+                    IsAnimal = true,
+                },
+                new()
+                {
+                    ID = "bee",
+                    IconName = "sprites/animals/bee/bee",
+                    TimeToGrow = 10f,
+                    Yield = 4,
+                    PurchasePrice = 80f,
+                    SellPrice = 35f,
+                    IsAnimal = true,
+                },
+            };
+        }
+        else
+        {
+            shopItems = new PlantMenuItem[SpriteGrid.NUM_CELLS - 1]
+            {
+                new()
+                {
+                    ID = "lettuce",
+                    IconName = "sprites/crops/lettuce/lettuce_2",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/lettuce/lettuce_1",
+                        "sprites/crops/lettuce/lettuce_2",
+                    },
+                    TimeToGrow = 10f,
+                    Yield = 1,
+                    PurchasePrice = 15f,
+                    SellPrice = 30f,
+                    IsAnimal = false,
+                },
+                new()
+                {
+                    ID = "tomato",
+                    IconName = "sprites/crops/tomato/tomato_2",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/tomato/tomato_1",
+                        "sprites/crops/tomato/tomato_2",
+                    },
+                    TimeToGrow = 5f,
+                    Yield = 6,
+                    PurchasePrice = 10f,
+                    SellPrice = 3f,
+                    IsAnimal = false,
+                },
+                new()
+                {
+                    ID = "carrot",
+                    IconName = "sprites/crops/carrot/carrot",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/carrot/carrot_1",
+                        "sprites/crops/carrot/carrot_2",
+                    },
+                    TimeToGrow = 7.5f,
+                    Yield = 5,
+                    PurchasePrice = 12f,
+                    SellPrice = 4f,
+                    IsAnimal = false,
+                },
+                new()
+                {
+                    ID = "apple",
+                    IconName = "sprites/crops/apple/apple",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/apple/apple_tree",
+                        "sprites/crops/apple/apple_tree_grown",
+                    },
+                    TimeToGrow = 15f,
+                    Yield = 8,
+                    PurchasePrice = 50f,
+                    SellPrice = 8f,
+                    IsAnimal = false,
+                },
+                new()
+                {
+                    ID = "blueberry",
+                    IconName = "sprites/crops/blueberries/blueberry",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/blueberries/blueberry_bush_1",
+                        "sprites/crops/blueberries/blueberry_bush_2",
+                    },
+                    TimeToGrow = 2.5f,
+                    Yield = 20,
+                    PurchasePrice = 10f,
+                    SellPrice = 1f,
+                    IsAnimal = false,
+                },
+                new()
+                {
+                    ID = "pumpkin",
+                    IconName = "sprites/crops/pumpkin/pumpkin_2",
+                    GrowthStageIconNames = new string[]
+                    {
+                        "sprites/general/seeds",
+                        "sprites/crops/pumpkin/pumpkin_1",
+                        "sprites/crops/pumpkin/pumpkin_2",
+                    },
+                    TimeToGrow = 15f,
+                    Yield = 4,
+                    PurchasePrice = 25f,
+                    SellPrice = 15f,
+                    IsAnimal = false,
+                },
+            };
+        }
+
         base.Enter(mainController, stateMachine);
 
         spriteGrid.SetButtonText("Go Back");
-
-        shopItems = new PlantMenuItem[SpriteGrid.NUM_CELLS - 1]
-        {
-            // Fruits and vegetables
-            new()
-            {
-                Name = "Carrot",
-                Description = "A healthy carrot",
-                IconName = "placeholder",
-                TimeToGrow = 5f,
-                Yield = 3,
-                YieldUnit = "carrots",
-                PurchasePrice = 1f,
-                SellPrice = 2f,
-                IsAnimal = false,
-            },
-            new()
-            {
-                Name = "Tomato",
-                Description = "A juicy tomato",
-                IconName = "placeholder",
-                TimeToGrow = 6f,
-                Yield = 5,
-                YieldUnit = "tomatoes",
-                PurchasePrice = 2f,
-                SellPrice = 4f,
-                IsAnimal = false,
-            },
-            new()
-            {
-                Name = "Apple",
-                Description = "A sweet apple",
-                IconName = "placeholder",
-                TimeToGrow = 8f,
-                Yield = 6,
-                YieldUnit = "apples",
-                PurchasePrice = 2.5f,
-                SellPrice = 5f,
-                IsAnimal = false,
-            },
-            // Animals
-            new()
-            {
-                Name = "Chicken",
-                Description = "A clucking chicken",
-                IconName = "placeholder",
-                TimeToGrow = 10f,
-                Yield = 2,
-                YieldUnit = "eggs",
-                PurchasePrice = 5f,
-                SellPrice = 10f,
-                IsAnimal = true,
-            },
-            new()
-            {
-                Name = "Cow",
-                Description = "A mooing cow",
-                IconName = "placeholder",
-                TimeToGrow = 20f,
-                Yield = 10,
-                YieldUnit = "milk",
-                PurchasePrice = 20f,
-                SellPrice = 40f,
-                IsAnimal = true,
-            },
-            new()
-            {
-                Name = "Sheep",
-                Description = "A baaing sheep",
-                IconName = "placeholder",
-                TimeToGrow = 15f,
-                Yield = 5,
-                YieldUnit = "wool",
-                PurchasePrice = 10f,
-                SellPrice = 20f,
-                IsAnimal = true,
-            },
-        };
     }
 
     public override void Tick()

@@ -21,10 +21,17 @@ public class PlotItem
         elapsedTime = 0f;
     }
 
-    public void Harvest(State state)
+    public float Harvest(State state)
     {
-        state.mainController.Coins += (Being.SellPrice + bonusCoins) * (Being.Yield + bonusYield);
+        float totalYield = Being.Yield + bonusYield;
+        float gainedCoins = (Being.SellPrice + bonusCoins) * totalYield;
+
+        state.mainController.Coins += gainedCoins;
+        state.mainController.Score += gainedCoins;
+
         Clear();
+
+        return totalYield;
     }
 
     public bool IsEmpty()
@@ -61,5 +68,15 @@ public class PlotItem
         }
 
         elapsedTime += Time.deltaTime * growthRateMultiplier;
+    }
+
+    public float GetGrowthPercentage()
+    {
+        if (Being == null)
+        {
+            return 0f;
+        }
+
+        return Mathf.Clamp01(elapsedTime / Being.TimeToGrow);
     }
 }

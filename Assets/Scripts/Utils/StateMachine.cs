@@ -8,21 +8,16 @@ public class StateMachine
     public StateMachine(MainController mainController)
     {
         this.mainController = mainController;
-
-        new List<State>()
-        {
-            mainController.trainingController,
-            mainController.gameController,
-            mainController.upgradeMenuController,
-            mainController.plantMenuController,
-        }.ForEach(obj => obj.gameObject.SetActive(false));
-
-        GotoState(mainController.trainingController);
     }
 
     public void Update()
     {
-        if (!currentState)
+        if (currentState == null)
+        {
+            return;
+        }
+
+        if (!currentState.IsActive)
         {
             return;
         }
@@ -32,7 +27,7 @@ public class StateMachine
 
     public void GotoState(State newState)
     {
-        if (!currentState)
+        if (currentState == null)
         {
             currentState = newState;
             currentState.Enter(mainController, this);
