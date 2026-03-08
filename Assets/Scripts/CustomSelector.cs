@@ -9,6 +9,7 @@ namespace BCIEssentials.Selection
 
     public class CustomSelector : SelectionBehaviour
     {
+
         [SerializeField]
         private StimulusPresenterCollection _target;
 

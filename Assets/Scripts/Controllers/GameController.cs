@@ -51,12 +51,12 @@ public class GameController : State
             if (plot.IsFullyGrown())
             {
                 float yield = plot.Harvest(this);
-                string name = plot.Being.IconName;
-                if (!stats.ContainsKey(name))
-                {
-                    stats[name] = 0f;
-                }
-                stats[name] += yield;
+                // string name = plot.Being.IconName;
+                // if (!stats.ContainsKey(name))
+                // {
+                    // stats[name] = 0f;
+                // }
+                // stats[name] += yield;
             }
 
             SpriteGridCell spriteGridCell = spriteGrid.sprites[i];
@@ -66,10 +66,10 @@ public class GameController : State
         // TODO Show day progress ui here
 
         // TODO Update board ui here
-        foreach (var stat in stats.Keys)
-        {
-            Debug.Log("" + stat + ": " + stats[stat]);
-        }
+        // foreach (var stat in stats.Keys)
+        // {
+        //     Debug.Log("" + stat + ": " + stats[stat]);
+        // }
     }
 
     public override void HandleButtonSelect(int index)
