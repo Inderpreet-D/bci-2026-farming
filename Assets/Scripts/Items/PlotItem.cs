@@ -24,8 +24,11 @@ public class PlotItem
     public float Harvest(State state)
     {
         float totalYield = Being.Yield + bonusYield;
+        float gainedCoins = (Being.SellPrice + bonusCoins) * totalYield;
 
-        state.mainController.Coins += (Being.SellPrice + bonusCoins) * totalYield;
+        state.mainController.Coins += gainedCoins;
+        state.mainController.Score += gainedCoins;
+
         Clear();
 
         return totalYield;

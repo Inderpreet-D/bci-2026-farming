@@ -1,11 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : State
 {
-    public const int NUM_DAYS = 5;
     public const float DAY_LENGTH_SECONDS = 5f * 60f;
-    public int currentDay = 0;
     public float elapsed = 0.0f;
 
     public Dictionary<string, float> stats = new();
@@ -20,6 +19,33 @@ public class GameController : State
         spriteGrid.SetButtonText("Upgrade");
     }
 
+    private void UpdateStatsUI()
+    {
+        mainController.blueberryText.text = MathF
+            .Round(stats.GetValueOrDefault("blueberry", 0f))
+            .ToString();
+        mainController.tomatoText.text = MathF
+            .Round(stats.GetValueOrDefault("tomato", 0f))
+            .ToString();
+        mainController.eggText.text = MathF
+            .Round(stats.GetValueOrDefault("chicken", 0f))
+            .ToString();
+        mainController.appleText.text = MathF
+            .Round(stats.GetValueOrDefault("apple", 0f))
+            .ToString();
+        mainController.lettuceText.text = MathF
+            .Round(stats.GetValueOrDefault("lettuce", 0f))
+            .ToString();
+        mainController.honeyText.text = MathF.Round(stats.GetValueOrDefault("bee", 0f)).ToString();
+        mainController.pumpkinText.text = MathF
+            .Round(stats.GetValueOrDefault("pumpkin", 0f))
+            .ToString();
+        mainController.carrotText.text = MathF
+            .Round(stats.GetValueOrDefault("carrot", 0f))
+            .ToString();
+        mainController.milkText.text = MathF.Round(stats.GetValueOrDefault("cow", 0f)).ToString();
+    }
+
     public override void Tick()
     {
         base.Tick();
@@ -27,15 +53,8 @@ public class GameController : State
         elapsed += Time.deltaTime;
         if (elapsed >= DAY_LENGTH_SECONDS)
         {
-            elapsed = 0f;
-            currentDay++;
-            Debug.Log($"Day {currentDay} starting!");
-
-            if (currentDay >= NUM_DAYS)
-            {
-                stateMachine.GotoState(mainController.endScreenController);
-                return;
-            }
+            stateMachine.GotoState(mainController.endScreenController);
+            return;
         }
 
         for (int i = 0; i < spriteGrid.sprites.Length; i++)
@@ -50,26 +69,23 @@ public class GameController : State
 
             if (plot.IsFullyGrown())
             {
+                string id = plot.Being.ID;
                 float yield = plot.Harvest(this);
-                // string name = plot.Being.IconName;
-                // if (!stats.ContainsKey(name))
-                // {
-                    // stats[name] = 0f;
-                // }
-                // stats[name] += yield;
+                if (!stats.ContainsKey(id))
+                {
+                    stats[id] = 0f;
+                }
+                stats[id] += yield;
             }
 
             SpriteGridCell spriteGridCell = spriteGrid.sprites[i];
             spriteGridCell.RenderPlotItem(plot);
         }
 
-        // TODO Show day progress ui here
+        int timeRemaining = Mathf.FloorToInt(DAY_LENGTH_SECONDS - elapsed);
+        mainController.timeText.text = $"{timeRemaining} seconds left";
 
-        // TODO Update board ui here
-        // foreach (var stat in stats.Keys)
-        // {
-        //     Debug.Log("" + stat + ": " + stats[stat]);
-        // }
+        UpdateStatsUI();
     }
 
     public override void HandleButtonSelect(int index)

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class MainController : MonoBehaviour
@@ -5,6 +6,22 @@ public class MainController : MonoBehaviour
     public const int UNSELECTED_PLOT_INDEX = -1;
 
     public GameObject spriteParent;
+    public GameObject marketParent;
+    public TextMeshProUGUI trainingText;
+    public GameObject gameOverBoard;
+    public TextMeshProUGUI gameOverText;
+    public SpriteRenderer sunSprite;
+    public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI timeText;
+    public TextMeshProUGUI blueberryText;
+    public TextMeshProUGUI tomatoText;
+    public TextMeshProUGUI eggText;
+    public TextMeshProUGUI appleText;
+    public TextMeshProUGUI lettuceText;
+    public TextMeshProUGUI honeyText;
+    public TextMeshProUGUI pumpkinText;
+    public TextMeshProUGUI carrotText;
+    public TextMeshProUGUI milkText;
 
     public State trainingController;
     public State gameController;
@@ -15,6 +32,7 @@ public class MainController : MonoBehaviour
     public StateMachine stateMachine { get; private set; }
     public PlotItem[] PlotItems { get; private set; }
     public float Coins { get; set; } = 400.0f;
+    public float Score { get; set; } = 0.0f;
     public int LastSelectedPlotIndex { get; set; } = UNSELECTED_PLOT_INDEX;
 
     void Start()
@@ -81,6 +99,8 @@ public class MainController : MonoBehaviour
     void Update()
     {
         stateMachine?.Update();
+        // Format coins with commas and no decimal places
+        coinsText.text = Coins.ToString("N0");
     }
 
     public bool PlantBeing(PlantMenuItem being)
@@ -111,6 +131,11 @@ public class MainController : MonoBehaviour
     public bool ApplyUpgrade(int index)
     {
         PlotItem selectedPlot = PlotItems[index];
+
+        if (!selectedPlot.IsEmpty())
+        {
+            return false;
+        }
 
         if (selectedPlot.Upgrade.IsMaxLevel())
         {

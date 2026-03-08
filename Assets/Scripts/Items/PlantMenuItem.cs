@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlantMenuItem
 {
+    public string ID { get; set; }
     public string IconName { get; set; }
 
     public string[] GrowthStageIconNames { get; set; } = new string[0];
@@ -15,6 +16,7 @@ public class PlantMenuItem
     {
         return new PlantMenuItem
         {
+            ID = (string)ID.Clone(),
             IconName = (string)IconName.Clone(),
             TimeToGrow = TimeToGrow,
             Yield = Yield,

@@ -16,6 +16,8 @@ public class EndScreenController : State
     {
         base.Enter(mainController, stateMachine);
 
-        // TODO Show ui here
+        mainController.gameOverBoard.SetActive(true);
+        mainController.gameOverText.text =
+            $"Game Over\n\nFinal Score\n{mainController.Score.ToString("N0")}";
     }
 }

@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class TrainingController : State
 {
-    const float TRAINING_DELAY = 1.0f; //5.0f;
-    private float elapsedTime;
-
     public TrainingController(MainController mainController, StateMachine stateMachine)
         : base(mainController, stateMachine) { }
 
@@ -19,17 +16,33 @@ public class TrainingController : State
     {
         base.Enter(mainController, stateMachine);
 
-        elapsedTime = 0.0f;
+        mainController.trainingText.gameObject.SetActive(true);
+        mainController.marketParent.SetActive(false);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        mainController.trainingText.gameObject.SetActive(false);
+        mainController.marketParent.SetActive(true);
     }
 
     public override void Tick()
     {
         base.Tick();
 
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= TRAINING_DELAY)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             stateMachine.GotoState(stateMachine.mainController.gameController);
+            return;
         }
+    }
+
+    public override void HandleButtonSelect(int index)
+    {
+        base.HandleButtonSelect(index);
+
+        Debug.Log($"Selected training button index: {index}");
     }
 }
